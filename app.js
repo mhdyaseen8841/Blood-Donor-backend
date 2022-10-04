@@ -5,11 +5,12 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const app=express()
 
-const Student = require('./models/Students')
+const Donor = require('./models/Donor')
+
 
 //db connection
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost:27017/students',(err,done)=>{
+mongoose.connect('mongodb://localhost:27017/BloodDonor',(err,done)=>{
 if(err){
     console.log("error occured")
 }
@@ -26,10 +27,10 @@ app.use(express.json())
 
 
 //routes
-app.get('/',(req,res)=>{
+app.get('/findDonor',(req,res)=>{
     console.log('get request')
    
-    Student.find().then(result=>{
+    Donor.find().then(result=>{
         console.log('hloooooooooo')
         console.log(result)
         res.status(200).json({msg:"successfull",result})
@@ -40,18 +41,25 @@ app.get('/',(req,res)=>{
     })
 })
 
-app.post('/students',(req,res)=>{
-    console.log(req.body.firstname);
-    console.log(req.body.lastname);
-    console.log(req.body.place);
+app.post('/donorRegistration',(req,res)=>{
+    console.log(req.body.firstName);
     
-    const student = new Student({
+    
+    const Donor1 = new Donor({
         _id: new mongoose.Types.ObjectId,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        place: req.body.place
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        motherName:req.body.motherName,
+        fatherName:req.body.fatherName,
+        mobNum:req.body.mobNum,
+        address : req.body.address,
+        gender:req.body.gender,
+        bloodGroup:req.body.bloodGroup,
+        district:req.body.district,
+        dob:req.body.dob,
+        pincode:req.body.pincode
     });
-    student.save()
+    Donor1.save()
     .then(result=>{
         console.log(result)
         res.status(200).json({msg:"successfully submitted"
