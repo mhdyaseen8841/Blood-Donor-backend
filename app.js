@@ -31,8 +31,7 @@ app.get('/findDonor',(req,res)=>{
     console.log('get request')
    
     Donor.find().then(result=>{
-        console.log('hloooooooooo')
-        console.log(result)
+      
         res.status(200).json({msg:"successfull",result})
     })
     .catch(err=>{
@@ -40,6 +39,9 @@ app.get('/findDonor',(req,res)=>{
         res.status(500).json({msg:"Error Occured"})
     })
 })
+
+
+
 
 app.post('/donorRegistration',(req,res)=>{
     console.log(req.body.firstName);
@@ -74,9 +76,9 @@ app.post('/donorRegistration',(req,res)=>{
 
 
 
-app.delete('/student/:id',(req,res)=>{
+app.delete('/deleteDonor/:id',(req,res)=>{
     const id=req.params.id;
-    Student.remove({_id:id},(err,result)=>{
+    Donor.remove({_id:id},(err,result)=>{
         if(err){
             console.log(err);
             res.status(500).send("error occured")
