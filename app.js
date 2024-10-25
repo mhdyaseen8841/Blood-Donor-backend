@@ -18,6 +18,7 @@ mongoose.connect("mongodb://localhost:27017/BloodDonor", (err, done) => {
 });
 
 console.log("================");
+console.log("=======2=========");
 //middlewares
 app.use(cors());
 app.use(express.json());
